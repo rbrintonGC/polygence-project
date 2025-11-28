@@ -1,0 +1,53 @@
+.App {
+  margin: 0px;
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 15px;
+  color: white;
+  background-color: #8f679c;
+}
+.App,
+h2 {
+  font-size: 17px;
+}
+.Inputs,
+input {
+  margin: 10px;
+  margin-top: 10px;
+  padding: 10px;
+}
+.Inputs,
+h2 {
+  text-align: center;
+}
+.Inputs {
+  padding: 10px;
+  align-items: center;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.Fields {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  margin-left: auto;
+  text-align: center;
+}
+.submit {
+  background-color: #8f679c;
+  font-family: monospace;
+  width: 120px;
+  height: 50px;
+  font-size: 20px;
+  border-color: #8f679c;
+  border-radius: 8px;
+  margin-top: 15px;
+  color: white;
+  margin: 10px;
+}
+html,
+body {
+  margin: 0px;
+  font-family: monospace;
+}
