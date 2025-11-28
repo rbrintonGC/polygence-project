@@ -1,96 +1,178 @@
+// src/Inputs.js
 import "./styles.css";
 import { useState } from "react";
 
-export default function Inputs() {
-  const [view, setView] = useState(false);
-  let healthI = parseInt(document.getElementById("health").value);
-  let autoI = parseInt(document.getElementById("auto").value);
-  let dentalI = parseInt(document.getElementById("dental").value);
-  let petI = parseInt(document.getElementById("pet").value);
-  let rentI = parseInt(document.getElementById("rent").value);
-  let utilitiesI = parseInt(document.getElementById("utilities").value);
-  let carI = parseInt(document.getElementById("car").value);
-  let savingsI = parseInt(document.getElementById("savings").value);
-  let groceriesI = parseInt(document.getElementById("groceries").value);
-  let shoppingI = parseInt(document.getElementById("shopping").value);
-  let funI = parseInt(document.getElementById("fun").value);
-  let emergencyI = parseInt(document.getElementById("emergency").value);
-  let yIncome =
-    (healthI +
-      autoI +
-      dentalI +
-      petI +
-      rentI +
-      utilitiesI +
-      carI +
-      savingsI +
-      groceriesI +
-      shoppingI +
-      funI +
-      emergencyI) *
-    12 *
-    1.169;
-  function handleClick() {
-    setView(true);
-    alert("Yearly Income Necessary: " + yIncome);
+export default function Inputs({ onSubmit }) {
+  const [values, setValues] = useState({
+    health: "",
+    auto: "",
+    dental: "",
+    pet: "",
+    rent: "",
+    utilities: "",
+    car: "",
+    savings: "",
+    groceries: "",
+    shopping: "",
+    fun: "",
+    emergency: ""
+  });
+
+  function handleChange(e) {
+    const { id, value } = e.target;
+    setValues((prev) => ({
+      ...prev,
+      [id]: value
+    }));
   }
+
+  function handleClick() {
+    // Sum all fields as numbers
+    const totalMonthly = Object.values(values).reduce((sum, v) => {
+      const num = parseFloat(v);
+      return sum + (Number.isNaN(num) ? 0 : num);
+    }, 0);
+
+    const yIncome = totalMonthly * 12 * 1.169;
+
+    alert("Yearly Income Necessary: " + yIncome.toFixed(2));
+
+    if (onSubmit) {
+      onSubmit(yIncome);
+    }
+  }
+
+  function handleReset() {
+    setValues({
+      health: "",
+      auto: "",
+      dental: "",
+      pet: "",
+      rent: "",
+      utilities: "",
+      car: "",
+      savings: "",
+      groceries: "",
+      shopping: "",
+      fun: "",
+      emergency: ""
+    });
+  }
+
   return (
     <div className="Inputs">
       <div className="Fields">
         <div id="Container1">
           <h2>Insurance</h2>
-          <input type="text" placeholder="Health" id="health"></input>
-          <br></br>
-          <input type="text" placeholder="Auto" id="auto"></input>
-          <br></br>
-          <input type="text" placeholder="Dental" id="dental"></input>
-          <br></br>
-          <input type="text" placeholder="Pet (optional)" id="pet"></input>
+          <input
+            type="number"
+            placeholder="Health"
+            id="health"
+            value={values.health}
+            onChange={handleChange}
+          />
+          <br />
+          <input
+            type="number"
+            placeholder="Auto"
+            id="auto"
+            value={values.auto}
+            onChange={handleChange}
+          />
+          <br />
+          <input
+            type="number"
+            placeholder="Dental"
+            id="dental"
+            value={values.dental}
+            onChange={handleChange}
+          />
+          <br />
+          <input
+            type="number"
+            placeholder="Pet (optional)"
+            id="pet"
+            value={values.pet}
+            onChange={handleChange}
+          />
         </div>
+
         <div id="Container2">
           <h2>Living</h2>
-          <input type="text" placeholder="Rent" id="rent"></input>
-          <br></br>
-          <input type="text" placeholder="Utilities" id="utilities"></input>
-          <br></br>
-          <input type="text" placeholder="Car" id="car"></input>
-          <br></br>
-          <input type="text" placeholder="Savings" id="savings"></input>
+          <input
+            type="number"
+            placeholder="Rent"
+            id="rent"
+            value={values.rent}
+            onChange={handleChange}
+          />
+          <br />
+          <input
+            type="number"
+            placeholder="Utilities"
+            id="utilities"
+            value={values.utilities}
+            onChange={handleChange}
+          />
+          <br />
+          <input
+            type="number"
+            placeholder="Car"
+            id="car"
+            value={values.car}
+            onChange={handleChange}
+          />
+          <br />
+          <input
+            type="number"
+            placeholder="Savings"
+            id="savings"
+            value={values.savings}
+            onChange={handleChange}
+          />
         </div>
+
         <div id="Container3">
           <h2>Amenities</h2>
-          <input type="text" placeholder="Groceries" id="groceries"></input>
-          <br></br>
-          <input type="text" placeholder="Shopping" id="shopping"></input>
-          <br></br>
-          <input type="text" placeholder="Fun" id="fun"></input>
-          <br></br>
-          <input type="text" placeholder="Emergency" id="emergency"></input>
+          <input
+            type="number"
+            placeholder="Groceries"
+            id="groceries"
+            value={values.groceries}
+            onChange={handleChange}
+          />
+          <br />
+          <input
+            type="number"
+            placeholder="Shopping"
+            id="shopping"
+            value={values.shopping}
+            onChange={handleChange}
+          />
+          <br />
+          <input
+            type="number"
+            placeholder="Fun"
+            id="fun"
+            value={values.fun}
+            onChange={handleChange}
+          />
+          <br />
+          <input
+            type="number"
+            placeholder="Emergency"
+            id="emergency"
+            value={values.emergency}
+            onChange={handleChange}
+          />
         </div>
       </div>
+
       <div className="buttons">
         <button className="submit" id="submit" onClick={handleClick}>
           Submit
         </button>
-        <button
-          className="submit"
-          id="reset"
-          onclick={function resetClick() {
-            setView(false);
-            document.getElementById("health").value = "";
-            document.getElementById("auto").value = "";
-            document.getElementById("dental").value = "";
-            document.getElementById("pet").value = "";
-            document.getElementById("rent").value = "";
-            document.getElementById("utilities").value = "";
-            document.getElementById("car").value = "";
-            document.getElementById("savings").value = "";
-            document.getElementById("groceries").value = "";
-            document.getElementById("shopping").value = "";
-            document.getElementById("fun").value = "";
-            document.getElementById("emergency").value = "";
-          }}
-        >
+        <button className="submit" id="reset" onClick={handleReset}>
           Reset
         </button>
       </div>
